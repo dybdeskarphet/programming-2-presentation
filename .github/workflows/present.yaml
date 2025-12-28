@@ -40,5 +40,5 @@ jobs:
         env:
           QUARTO_PYTHON: .venv/bin/python
         with:
-          target: presentation/presentation.ipynb
+          target: ./presentation/presentation.ipynb
           render: true
