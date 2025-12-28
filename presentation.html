@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.8.26">
 
   <meta name="author" content="Muhammed Emir Arıkan &amp; Ahmet Arda Kavakcı">
-  <title>Nesting Problemi (Mini)</title>
+  <title>Nesting Problemi</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -193,7 +193,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Nesting Problemi (Mini)</h1>
+  <h1 class="title">Nesting Problemi</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -207,19 +207,18 @@ Muhammed Emir Arıkan &amp; Ahmet Arda Kavakcı
 <section id="sunumun-gidişatı" class="slide level2">
 <h2>Sunumun Gidişatı</h2>
 <ul>
-<li>Sunumumuz interaktiftir. Yani direkt olarak Jupyter Notebook üzerinden hazırlanmış bir sunumdur.</li>
-<li>Jupyter Notebook temelli olması sebebiyle proje kodunun tamamını içerecektir.</li>
-<li>Sunumun ne zaman biteceğini aşağıdaki çubuktan takip edebilirsiniz.</li>
+<li>Nesting problemi nediri?</li>
+<li>Basit bir görselleştirme</li>
+<li>Hedeflerimiz</li>
+<li>Metodoloji</li>
+<li>Algoritma Adımları</li>
+<li>Kod</li>
 </ul>
 </section>
 <section id="nesting-problemi-nedir" class="slide level2">
 <h2>Nesting problemi nedir?</h2>
 <p>Endüstri mühendisliği ve üretim planlamada <strong>Nesting (Yerleşim) Problemi</strong>, düzensiz veya dikdörtgen parçaların, belirli boyutlardaki bir hammadde levhası (stock sheet) üzerine, <strong>en az fireyi (waste)</strong> verecek şekilde yerleştirilmesi sürecidir.</p>
 </section>
-<section id="basit-bir-görselleştirme" class="slide level2">
-<h2>Basit Bir Görselleştirme</h2>
-
-<img data-src="./assets/patterns_nesting.png" class="r-stretch"></section>
 <section class="slide level2">
 
 <p>Bizim ilgileneceğimiz verisyonu, literatürde <strong>2D Bin Packing</strong> veya <strong>Cutting Stock Problem</strong> varyasyonu olarak bilinir ve çözüm karmaşıklığı açısından <strong>NP-Hard</strong> sınıfında yer alır. Yani parça sayısı arttıkça, en mükemmel sonucu bulmak için gereken hesaplama süresi üstel olarak artar.</p>
@@ -247,6 +246,10 @@ Muhammed Emir Arıkan &amp; Ahmet Arda Kavakcı
 <li><strong>Yeni Satır:</strong> Mevcut satırın genişliği dolduğunda, bir üst satıra geçilir ve işlem tekrarlanır.</li>
 </ol>
 </section>
+<section id="basit-bir-görselleştirme" class="slide level2">
+<h2>Basit Bir Görselleştirme</h2>
+
+<img data-src="./assets/patterns_nesting.png" class="r-stretch"></section>
 <section class="slide level2">
 
 <p>Algoritma yapımızı Python’a döktükten sonra karşımıza çıkacak sonuç aşağıdaki görsele benzeyecektir:</p>
@@ -260,7 +263,7 @@ Muhammed Emir Arıkan &amp; Ahmet Arda Kavakcı
 <section class="slide level2">
 
 <p>Öncelikle ihtiyacımız olan kütüphaneleri aktarıyoruz.</p>
-<div id="4afd70d0" class="cell" data-execution_count="1234">
+<div id="4afd70d0" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href=""></a><span class="im">import</span> matplotlib.patches <span class="im">as</span> patches</span>
 <span id="cb1-3"><a href=""></a><span class="im">import</span> random</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -269,7 +272,7 @@ Muhammed Emir Arıkan &amp; Ahmet Arda Kavakcı
 <section class="slide level2">
 
 <p>Ardından kodda kullanacağımız objeyi, sınıf yapısı şeklinde tanımlıyoruz.</p>
-<div id="88ba0109" class="cell" data-execution_count="1235">
+<div id="88ba0109" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="im">import</span> uuid</span>
 <span id="cb2-2"><a href=""></a><span class="kw">class</span> Item:</span>
 <span id="cb2-3"><a href=""></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, width, height):</span>
@@ -288,16 +291,16 @@ Muhammed Emir Arıkan &amp; Ahmet Arda Kavakcı
 <section class="slide level2">
 
 <p>Rastgele bloklarımızı barındıracak olan listemizi oluşturuyoruz.</p>
-<div id="67ab0a17" class="cell" data-execution_count="1236">
+<div id="67ab0a17" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>items <span class="op">=</span> []</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Rastgele bloklarımızın çok büyük olmaması ve görselleştirmesinin anlaşılabilir olması için <code>max_w</code> ve <code>max_h</code> şeklinde iki değişken tanımlıyoruz. Bunlar en ve boy sınırlarımızı belirtiyor.</p>
-<div id="6f118fdc" class="cell" data-execution_count="1237">
+<div id="6f118fdc" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>max_w <span class="op">=</span> <span class="dv">6</span></span>
 <span id="cb4-2"><a href=""></a>max_h <span class="op">=</span> <span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Son olarak toplam kaç tane blok oluşturmak istediğimizi ve ne kadar geniş bir alan istediğimizi belirtiyoruz.</p>
-<div id="c27cdfd7" class="cell" data-execution_count="1238">
+<div id="c27cdfd7" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>num_items <span class="op">=</span> <span class="dv">15</span></span>
 <span id="cb5-2"><a href=""></a>sheet_width <span class="op">=</span> <span class="dv">20</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -305,14 +308,14 @@ Muhammed Emir Arıkan &amp; Ahmet Arda Kavakcı
 <section class="slide level2">
 
 <p><code>for</code> döngüsü ile rastgele bloklarımızı oluşturup <code>items</code> listemize ekliyoruz.</p>
-<div id="71c0d921" class="cell" data-execution_count="1239">
+<div id="71c0d921" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_items):</span>
 <span id="cb6-2"><a href=""></a>    w <span class="op">=</span> random.randint(<span class="dv">2</span>, max_w) </span>
 <span id="cb6-3"><a href=""></a>    h <span class="op">=</span> random.randint(<span class="dv">2</span>, max_h)</span>
 <span id="cb6-4"><a href=""></a>    items.append(Item(w, h))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Kullanacağımız FFDH yönteminde blokların uzunluk sıralamasına ihtiyaç duyacağımız için, elimizdeki <code>items</code> listesinin sıralı halini <code>sorted_items</code> değişkenine atıyoruz.</p>
-<div id="e7216d9d" class="cell" data-execution_count="1240">
+<div id="e7216d9d" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a>sorted_items <span class="op">=</span> <span class="bu">sorted</span>(items, key<span class="op">=</span><span class="kw">lambda</span> x: x.height, reverse<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Sıralamayı yaparken items obje listesindeki ’blok’ların sadece <code>height</code> yani uzunluk değerini kullanıyoruz. Ve sıralamayı tersten, yani büyükten küçüğe yapıyoruz.</p>
@@ -320,20 +323,20 @@ Muhammed Emir Arıkan &amp; Ahmet Arda Kavakcı
 <section class="slide level2">
 
 <p>Sıralanmış objelerimizi kontrol edelim:</p>
-<div id="4e009fd2" class="cell" data-execution_count="1241">
+<div id="4e009fd2" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="cf">for</span> item <span class="kw">in</span> sorted_items:</span>
 <span id="cb8-2"><a href=""></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>item<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">---</span><span class="ch">\n</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Obje Kimliği: 114c96ba-a53d-42ce-8950-4924c4d40880
-Obje genişliği: 6
+<pre><code>Obje Kimliği: a7a8fcd4-6cbe-418a-a60c-2527beaf38ea
+Obje genişliği: 4
 Obje Uzunluğu: 5
 Obje X koordinatı: 0
 Obje Y kordinatı 0
-Objenin toplam alanı: 30
+Objenin toplam alanı: 20
 
 ---
 
-Obje Kimliği: f7b561fc-7a7e-4721-b0c9-aa69fcc8d054
+Obje Kimliği: 5bd2c165-f613-4a83-bb8f-4dec3f62ad49
 Obje genişliği: 2
 Obje Uzunluğu: 5
 Obje X koordinatı: 0
@@ -342,79 +345,79 @@ Objenin toplam alanı: 10
 
 ---
 
-Obje Kimliği: 7ea9e692-4776-46df-b1b9-ca3d4ba57ebe
-Obje genişliği: 4
+Obje Kimliği: aecb85ec-12d9-4f22-8762-8723acfac336
+Obje genişliği: 3
 Obje Uzunluğu: 5
-Obje X koordinatı: 0
-Obje Y kordinatı 0
-Objenin toplam alanı: 20
-
----
-
-Obje Kimliği: 1cae84cd-5d23-4fc3-a33b-e4f7ba54b6e3
-Obje genişliği: 2
-Obje Uzunluğu: 4
-Obje X koordinatı: 0
-Obje Y kordinatı 0
-Objenin toplam alanı: 8
-
----
-
-Obje Kimliği: 3b4062e8-a7c1-4d73-b595-4cb9e1612b2e
-Obje genişliği: 2
-Obje Uzunluğu: 4
-Obje X koordinatı: 0
-Obje Y kordinatı 0
-Objenin toplam alanı: 8
-
----
-
-Obje Kimliği: e888b552-9d11-4705-b79b-05ba551a61ae
-Obje genişliği: 6
-Obje Uzunluğu: 4
-Obje X koordinatı: 0
-Obje Y kordinatı 0
-Objenin toplam alanı: 24
-
----
-
-Obje Kimliği: 584744fc-c8c5-4f1e-8afa-b6820cdcdebf
-Obje genişliği: 4
-Obje Uzunluğu: 4
-Obje X koordinatı: 0
-Obje Y kordinatı 0
-Objenin toplam alanı: 16
-
----
-
-Obje Kimliği: 9bf7e1a5-5ca9-4945-b0d5-23a2012e17bb
-Obje genişliği: 5
-Obje Uzunluğu: 4
-Obje X koordinatı: 0
-Obje Y kordinatı 0
-Objenin toplam alanı: 20
-
----
-
-Obje Kimliği: 0572a7f9-0a97-4e34-9730-4be8ae769b96
-Obje genişliği: 5
-Obje Uzunluğu: 3
 Obje X koordinatı: 0
 Obje Y kordinatı 0
 Objenin toplam alanı: 15
 
 ---
 
-Obje Kimliği: d5ceeee6-0a0a-449a-bfe9-02443a82dd4a
-Obje genişliği: 6
-Obje Uzunluğu: 3
+Obje Kimliği: cd378bb2-b6d2-4fb6-96e3-5a11e5c20954
+Obje genişliği: 2
+Obje Uzunluğu: 4
 Obje X koordinatı: 0
 Obje Y kordinatı 0
-Objenin toplam alanı: 18
+Objenin toplam alanı: 8
 
 ---
 
-Obje Kimliği: 71def0fa-7a6a-4294-8c75-f9d506b4b6ed
+Obje Kimliği: ca6c7e59-2af4-471f-ad37-c42c045b1cd2
+Obje genişliği: 5
+Obje Uzunluğu: 4
+Obje X koordinatı: 0
+Obje Y kordinatı 0
+Objenin toplam alanı: 20
+
+---
+
+Obje Kimliği: e791e016-a598-4050-a6cb-2d0f39cf80c0
+Obje genişliği: 3
+Obje Uzunluğu: 4
+Obje X koordinatı: 0
+Obje Y kordinatı 0
+Objenin toplam alanı: 12
+
+---
+
+Obje Kimliği: 442931d6-c5e3-48eb-96b8-b8d0e6b54c81
+Obje genişliği: 2
+Obje Uzunluğu: 4
+Obje X koordinatı: 0
+Obje Y kordinatı 0
+Objenin toplam alanı: 8
+
+---
+
+Obje Kimliği: c464fe6d-a64d-4f2e-8261-fa1d015b023b
+Obje genişliği: 2
+Obje Uzunluğu: 4
+Obje X koordinatı: 0
+Obje Y kordinatı 0
+Objenin toplam alanı: 8
+
+---
+
+Obje Kimliği: 25da0eb0-c7c8-402d-8d00-0057facd3447
+Obje genişliği: 2
+Obje Uzunluğu: 3
+Obje X koordinatı: 0
+Obje Y kordinatı 0
+Objenin toplam alanı: 6
+
+---
+
+Obje Kimliği: c2a08bb4-f3be-4a9f-b2fc-5655064e857c
+Obje genişliği: 3
+Obje Uzunluğu: 3
+Obje X koordinatı: 0
+Obje Y kordinatı 0
+Objenin toplam alanı: 9
+
+---
+
+Obje Kimliği: ca9221e7-062e-45f5-b932-b7f10125b9d1
 Obje genişliği: 4
 Obje Uzunluğu: 3
 Obje X koordinatı: 0
@@ -423,16 +426,16 @@ Objenin toplam alanı: 12
 
 ---
 
-Obje Kimliği: 79c44d94-a3d3-433f-b18b-057f957d8de0
-Obje genişliği: 3
+Obje Kimliği: ed165c7e-8644-4b44-bff2-2c096cbc8158
+Obje genişliği: 4
 Obje Uzunluğu: 2
 Obje X koordinatı: 0
 Obje Y kordinatı 0
-Objenin toplam alanı: 6
+Objenin toplam alanı: 8
 
 ---
 
-Obje Kimliği: 7ba4e4ab-b7b5-4bc5-abca-7f9e57a2e4de
+Obje Kimliği: ed0a4b25-8398-47c2-9a29-57f06905e715
 Obje genişliği: 5
 Obje Uzunluğu: 2
 Obje X koordinatı: 0
@@ -441,16 +444,16 @@ Objenin toplam alanı: 10
 
 ---
 
-Obje Kimliği: eb425b7f-5bf8-48ba-a07d-40f603b9bf1c
-Obje genişliği: 2
+Obje Kimliği: b32010a8-43f2-4cb8-b0b4-d69fc932703c
+Obje genişliği: 4
 Obje Uzunluğu: 2
 Obje X koordinatı: 0
 Obje Y kordinatı 0
-Objenin toplam alanı: 4
+Objenin toplam alanı: 8
 
 ---
 
-Obje Kimliği: 93e80d1f-3417-4599-bcb5-aa4d2aa2504b
+Obje Kimliği: 75bf04d2-cd09-423c-945f-c6fb1a437b21
 Obje genişliği: 4
 Obje Uzunluğu: 2
 Obje X koordinatı: 0
@@ -465,21 +468,21 @@ Objenin toplam alanı: 8
 <section class="slide level2">
 
 <p>Anlık koordinatlarımızı takip edebilmek için <code>current_x</code> ve <code>current_y</code> adında iki değişken oluşturuyoruz. İlk kordinatımız <code>0</code> olacağı için <code>0</code>’a eşitliyoruz. Aynı zamanda anlık yüksekliğimizi takip etmek için de <code>current_row_height</code> adında bir değişken oluşturuyoruz.</p>
-<div id="18e39402" class="cell" data-execution_count="1242">
+<div id="18e39402" class="cell" data-execution_count="25">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a>packed_items <span class="op">=</span> []</span>
 <span id="cb10-2"><a href=""></a>current_x <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb10-3"><a href=""></a>current_y <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb10-4"><a href=""></a>current_row_height <span class="op">=</span> <span class="dv">0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Yerleştirilmiş bloklarımızı takip etmek için de <code>packed_items</code> adında bir liste oluşturuyoruz. Toplam yüksekliğimizi takip edebilmek için ise <code>total_height</code> adında bir değişken oluşturuyoruz.</p>
-<div id="0d729203" class="cell" data-execution_count="1243">
+<div id="0d729203" class="cell" data-execution_count="26">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a>packed_items <span class="op">=</span> []</span>
 <span id="cb11-2"><a href=""></a>total_height <span class="op">=</span> <span class="dv">0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section class="slide level2">
 
-<div id="3f6fae1b" class="cell" data-execution_count="1244">
+<div id="3f6fae1b" class="cell" data-execution_count="27">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href=""></a><span class="cf">for</span> item <span class="kw">in</span> sorted_items:</span>
 <span id="cb12-2"><a href=""></a>    <span class="cf">if</span> current_x <span class="op">+</span> item.width <span class="op">&gt;</span> sheet_width:</span>
 <span id="cb12-3"><a href=""></a>        current_x <span class="op">=</span> <span class="dv">0</span></span>
@@ -502,141 +505,141 @@ Objenin toplam alanı: 8
 <section class="slide level2">
 
 <p>Paketlediğimiz, yani yerleştirdiğimiz blokların genel yapısına bir bakalım.</p>
-<div id="ba39de60" class="cell" data-execution_count="1245">
+<div id="ba39de60" class="cell" data-execution_count="28">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href=""></a><span class="cf">for</span> item <span class="kw">in</span> packed_items:</span>
 <span id="cb13-2"><a href=""></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>item<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">---</span><span class="ch">\n</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Obje Kimliği: 114c96ba-a53d-42ce-8950-4924c4d40880
-Obje genişliği: 6
+<pre><code>Obje Kimliği: a7a8fcd4-6cbe-418a-a60c-2527beaf38ea
+Obje genişliği: 4
 Obje Uzunluğu: 5
 Obje X koordinatı: 0
 Obje Y kordinatı 0
-Objenin toplam alanı: 30
+Objenin toplam alanı: 20
 
 ---
 
-Obje Kimliği: f7b561fc-7a7e-4721-b0c9-aa69fcc8d054
+Obje Kimliği: 5bd2c165-f613-4a83-bb8f-4dec3f62ad49
 Obje genişliği: 2
 Obje Uzunluğu: 5
-Obje X koordinatı: 6
+Obje X koordinatı: 4
 Obje Y kordinatı 0
 Objenin toplam alanı: 10
 
 ---
 
-Obje Kimliği: 7ea9e692-4776-46df-b1b9-ca3d4ba57ebe
-Obje genişliği: 4
+Obje Kimliği: aecb85ec-12d9-4f22-8762-8723acfac336
+Obje genişliği: 3
 Obje Uzunluğu: 5
-Obje X koordinatı: 8
-Obje Y kordinatı 0
-Objenin toplam alanı: 20
-
----
-
-Obje Kimliği: 1cae84cd-5d23-4fc3-a33b-e4f7ba54b6e3
-Obje genişliği: 2
-Obje Uzunluğu: 4
-Obje X koordinatı: 12
-Obje Y kordinatı 0
-Objenin toplam alanı: 8
-
----
-
-Obje Kimliği: 3b4062e8-a7c1-4d73-b595-4cb9e1612b2e
-Obje genişliği: 2
-Obje Uzunluğu: 4
-Obje X koordinatı: 14
-Obje Y kordinatı 0
-Objenin toplam alanı: 8
-
----
-
-Obje Kimliği: e888b552-9d11-4705-b79b-05ba551a61ae
-Obje genişliği: 6
-Obje Uzunluğu: 4
-Obje X koordinatı: 0
-Obje Y kordinatı 5
-Objenin toplam alanı: 24
-
----
-
-Obje Kimliği: 584744fc-c8c5-4f1e-8afa-b6820cdcdebf
-Obje genişliği: 4
-Obje Uzunluğu: 4
 Obje X koordinatı: 6
-Obje Y kordinatı 5
-Objenin toplam alanı: 16
-
----
-
-Obje Kimliği: 9bf7e1a5-5ca9-4945-b0d5-23a2012e17bb
-Obje genişliği: 5
-Obje Uzunluğu: 4
-Obje X koordinatı: 10
-Obje Y kordinatı 5
-Objenin toplam alanı: 20
-
----
-
-Obje Kimliği: 0572a7f9-0a97-4e34-9730-4be8ae769b96
-Obje genişliği: 5
-Obje Uzunluğu: 3
-Obje X koordinatı: 15
-Obje Y kordinatı 5
+Obje Y kordinatı 0
 Objenin toplam alanı: 15
 
 ---
 
-Obje Kimliği: d5ceeee6-0a0a-449a-bfe9-02443a82dd4a
-Obje genişliği: 6
-Obje Uzunluğu: 3
-Obje X koordinatı: 0
-Obje Y kordinatı 9
-Objenin toplam alanı: 18
+Obje Kimliği: cd378bb2-b6d2-4fb6-96e3-5a11e5c20954
+Obje genişliği: 2
+Obje Uzunluğu: 4
+Obje X koordinatı: 9
+Obje Y kordinatı 0
+Objenin toplam alanı: 8
 
 ---
 
-Obje Kimliği: 71def0fa-7a6a-4294-8c75-f9d506b4b6ed
-Obje genişliği: 4
-Obje Uzunluğu: 3
-Obje X koordinatı: 6
-Obje Y kordinatı 9
+Obje Kimliği: ca6c7e59-2af4-471f-ad37-c42c045b1cd2
+Obje genişliği: 5
+Obje Uzunluğu: 4
+Obje X koordinatı: 11
+Obje Y kordinatı 0
+Objenin toplam alanı: 20
+
+---
+
+Obje Kimliği: e791e016-a598-4050-a6cb-2d0f39cf80c0
+Obje genişliği: 3
+Obje Uzunluğu: 4
+Obje X koordinatı: 16
+Obje Y kordinatı 0
 Objenin toplam alanı: 12
 
 ---
 
-Obje Kimliği: 79c44d94-a3d3-433f-b18b-057f957d8de0
-Obje genişliği: 3
-Obje Uzunluğu: 2
-Obje X koordinatı: 10
-Obje Y kordinatı 9
+Obje Kimliği: 442931d6-c5e3-48eb-96b8-b8d0e6b54c81
+Obje genişliği: 2
+Obje Uzunluğu: 4
+Obje X koordinatı: 0
+Obje Y kordinatı 5
+Objenin toplam alanı: 8
+
+---
+
+Obje Kimliği: c464fe6d-a64d-4f2e-8261-fa1d015b023b
+Obje genişliği: 2
+Obje Uzunluğu: 4
+Obje X koordinatı: 2
+Obje Y kordinatı 5
+Objenin toplam alanı: 8
+
+---
+
+Obje Kimliği: 25da0eb0-c7c8-402d-8d00-0057facd3447
+Obje genişliği: 2
+Obje Uzunluğu: 3
+Obje X koordinatı: 4
+Obje Y kordinatı 5
 Objenin toplam alanı: 6
 
 ---
 
-Obje Kimliği: 7ba4e4ab-b7b5-4bc5-abca-7f9e57a2e4de
-Obje genişliği: 5
+Obje Kimliği: c2a08bb4-f3be-4a9f-b2fc-5655064e857c
+Obje genişliği: 3
+Obje Uzunluğu: 3
+Obje X koordinatı: 6
+Obje Y kordinatı 5
+Objenin toplam alanı: 9
+
+---
+
+Obje Kimliği: ca9221e7-062e-45f5-b932-b7f10125b9d1
+Obje genişliği: 4
+Obje Uzunluğu: 3
+Obje X koordinatı: 9
+Obje Y kordinatı 5
+Objenin toplam alanı: 12
+
+---
+
+Obje Kimliği: ed165c7e-8644-4b44-bff2-2c096cbc8158
+Obje genişliği: 4
 Obje Uzunluğu: 2
 Obje X koordinatı: 13
+Obje Y kordinatı 5
+Objenin toplam alanı: 8
+
+---
+
+Obje Kimliği: ed0a4b25-8398-47c2-9a29-57f06905e715
+Obje genişliği: 5
+Obje Uzunluğu: 2
+Obje X koordinatı: 0
 Obje Y kordinatı 9
 Objenin toplam alanı: 10
 
 ---
 
-Obje Kimliği: eb425b7f-5bf8-48ba-a07d-40f603b9bf1c
-Obje genişliği: 2
+Obje Kimliği: b32010a8-43f2-4cb8-b0b4-d69fc932703c
+Obje genişliği: 4
 Obje Uzunluğu: 2
-Obje X koordinatı: 18
+Obje X koordinatı: 5
 Obje Y kordinatı 9
-Objenin toplam alanı: 4
+Objenin toplam alanı: 8
 
 ---
 
-Obje Kimliği: 93e80d1f-3417-4599-bcb5-aa4d2aa2504b
+Obje Kimliği: 75bf04d2-cd09-423c-945f-c6fb1a437b21
 Obje genişliği: 4
 Obje Uzunluğu: 2
-Obje X koordinatı: 0
-Obje Y kordinatı 12
+Obje X koordinatı: 9
+Obje Y kordinatı 9
 Objenin toplam alanı: 8
 
 ---
@@ -648,21 +651,18 @@ Objenin toplam alanı: 8
 
 <p>Burada <span class="math inline">\(\text{10 inç} \times \text{6 inç}\)</span>’lik bir boş grafik oluşturuyoruz. Diretk olarak <code>plt</code>’yi kullanmak yerine obje odaklı grafik oluşturma yöntemini tercih ediyoruz.</p>
 <p>Ardından kutumuzu, veya düzlemimizi temsil eden dikdörtgeni oluşturuyoruz.</p>
-<div id="528e01cb" class="cell" data-execution_count="1246">
+<div id="528e01cb" class="cell" data-execution_count="29">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href=""></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
 <span id="cb15-2"><a href=""></a></span>
 <span id="cb15-3"><a href=""></a>ax.add_patch(patches.Rectangle((<span class="dv">0</span>, <span class="dv">0</span>), sheet_width, total_height, </span>
-<span id="cb15-4"><a href=""></a>                               linewidth<span class="op">=</span><span class="dv">2</span>, edgecolor<span class="op">=</span><span class="st">'red'</span>, facecolor<span class="op">=</span><span class="st">'none'</span>))</span>
-<span id="cb15-5"><a href=""></a></span>
-<span id="cb15-6"><a href=""></a>ax.set_xlim(<span class="op">-</span><span class="dv">1</span>, sheet_width <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb15-7"><a href=""></a>ax.set_ylim(<span class="op">-</span><span class="dv">1</span>, total_height <span class="op">+</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb15-4"><a href=""></a>                               linewidth<span class="op">=</span><span class="dv">2</span>, edgecolor<span class="op">=</span><span class="st">'red'</span>, facecolor<span class="op">=</span><span class="st">'none'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
 <img data-src="presentation_files/figure-revealjs/cell-14-output-1.png" class="r-stretch"></section>
 <section class="slide level2">
 
 <p>Hemen ardından bloklarımızı daha renkli görebilmek için blok sayımız kadar renkler oluşturuyoruz.</p>
-<div id="b656ab53" class="cell" data-execution_count="1247">
+<div id="b656ab53" class="cell" data-execution_count="30">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href=""></a>colors <span class="op">=</span> plt.cm.tab20([i<span class="op">/</span><span class="bu">len</span>(packed_items) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(packed_items))])</span>
 <span id="cb16-2"><a href=""></a><span class="bu">print</span>(colors)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -684,7 +684,7 @@ Objenin toplam alanı: 8
 </div>
 </div>
 <p>Burada gördüğümüz çıktı, <code>RGBA</code> yani <code>Red</code>, <code>Green</code>, <code>Blue</code> ve <code>Alpha</code>’yı temsil ediyor. Bildiğimizin dışında <code>Alpha</code> burada saydamlığı temsil ediyor.</p>
-<div id="a8b2517d" class="cell" data-execution_count="1248">
+<div id="a8b2517d" class="cell" data-execution_count="31">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href=""></a><span class="bu">print</span>(<span class="ss">f"Renk sayısı: </span><span class="sc">{</span><span class="bu">len</span>(colors)<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Renk sayısı: 15</code></pre>
@@ -695,7 +695,7 @@ Objenin toplam alanı: 8
 <section class="slide level2">
 
 <p>Yüzeyimizi oluşturduğumuza göre artık paketlediğimiz blokları grafiğimize ekleyebiliriz. <code>x</code> ve <code>y</code> değerlerimiz belirli olduğu için. <code>rect</code> değişkenlerinin her biri için direkt olarak objemizde bulunan <code>x</code> ve <code>y</code> değerlerini ekleyebiliriz</p>
-<div id="155b8458" class="cell" data-execution_count="1250">
+<div id="155b8458" class="cell" data-execution_count="32">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href=""></a><span class="cf">for</span> i, item <span class="kw">in</span> <span class="bu">enumerate</span>(packed_items):</span>
 <span id="cb20-2"><a href=""></a>    rect <span class="op">=</span> patches.Rectğangle((item.x, item.y), item.width, item.height, </span>
 <span id="cb20-3"><a href=""></a>                             linewidth<span class="op">=</span><span class="dv">1</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>, facecolor<span class="op">=</span>colors[i], alpha<span class="op">=</span><span class="fl">0.9</span>)</span>
@@ -728,8 +728,25 @@ Objenin toplam alanı: 8
 
 <p>Son olarak grafiğimizi yazdırıyoruz.</p>
 
+<img data-src="presentation_files/figure-revealjs/cell-20-output-1.png" class="r-stretch"></section>
+<section class="slide level2">
 
-<img data-src="presentation_files/figure-revealjs/cell-20-output-1.png" class="r-stretch"></section></section>
+</section></section>
+<section>
+<section id="teşekkürler" class="title-slide slide level1 center">
+<h1>Teşekkürler</h1>
+
+</section>
+<section class="slide level2">
+
+</section></section>
+<section id="kaynakça" class="title-slide slide level1 center">
+<h1>Kaynakça</h1>
+<ul>
+<li>Wäscher, G., Haußner, H., &amp; Schumann, H. (2007). <em>An improved typology of cutting and packing problems</em>. European Journal of Operational Research, 183(3), 1109-1130.</li>
+</ul>
+
+</section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
