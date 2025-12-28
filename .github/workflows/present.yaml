@@ -35,10 +35,12 @@ jobs:
       - name: Debug File Structure
         run: ls -R
 
-      - name: Publish to GitHub Pages
-        uses: quarto-dev/quarto-actions/publish@v2
+      - name: Publish to GitHub Pages (Manual)
         env:
-          QUARTO_PYTHON: .venv/bin/python
-        with:
-          target: ./presentation/presentation.ipynb
-          render: true
+          QUARTO_PYTHON: ${{ github.workspace }}/.venv/bin/python
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          cd presentation
+          ls -la
+          quarto publish gh-pages presentation.ipynb --no-browser --no-prompt
